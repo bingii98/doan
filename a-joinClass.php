@@ -76,12 +76,24 @@ if (!empty($c)) : ?>
         </div>
     </div>
     <div class="content">
-        <div class="editor-box">
-            <label for="txt-content">Comment</label>
-            <textarea name="text_content" id="txt-content-comment"></textarea>
-            <button class="btn btn-primary" id="btn-create-comment" data-id="<?= $c['id'] ?>" data-parent="0">Submit
-            </button>
-        </div>
+        <?php if ($_SESSION['isLogin']['role'] == 'admin' || $_SESSION['isLogin']['role'] == 'teacher'): ?>
+            <div class="editor-box">
+                <label for="txt-content">Comment</label>
+                <div class="d-flex">
+                    <div class="d-block">
+                        <label for="">Image</label>
+                        <input type="file" id="image-input" class="btn btn-secondary btn-sm" accept="image/png, image/jpeg, image/jpg, image/gif"/>
+                    </div>
+                    <div class="d-block">
+                        <label for="">Document</label>
+                        <input type="file" id="document-input" class="btn btn-secondary btn-sm" accept="application/pdf,application/vnd.ms-excel"/>
+                    </div>
+                </div>
+                <textarea name="text_content" id="txt-content-comment"></textarea>
+                <button class="btn btn-primary" id="btn-create-comment" data-id="<?= $c['id'] ?>" data-parent="0">Submit
+                </button>
+            </div>
+        <?php endif; ?>
         <div class="list-comment">
             <?php if ($arr_comment) : ?>
                 <?php foreach ($arr_comment as $item) : ?>
@@ -97,8 +109,25 @@ if (!empty($c)) : ?>
                                 </div>
                             </div>
                             <div class="content">
-                                <?= $item['content'] ?>
+                                <div class="content-box"><?= $item['content'] ?></div>
+                                <div class="editor-box">
+                                    <textarea><?= trim($item['content']) ?></textarea>
+                                    <div class="d-flex">
+                                        <button class="btn btn-sm btn-primary btn-confirm-edit-comment" data-id="<?= $item['id'] ?>">Confirm</button>
+                                        <button class="btn btn-sm btn-secondary btn-cancel-edit-comment">Cancel</button>
+                                    </div>
+                                </div>
                             </div>
+                            <?php if ($item['document'] || $item['image']): ?>
+                                <div class="file-box">
+                                    <img src="uploads/<?= $item['image'] ?>" alt="">
+                                    <?php if ($item['document']): ?>
+                                        <div class="document">
+                                            <a href="file.php?s=<?= $item['document'] ?>" target="_blank"><?= $item['document'] ?></a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
                             <div class="reply-wrapper">
                                 <?php $c_arr_commnet = $comment->getByClassParent($item['id']); ?>
                                 <?php if ($c_arr_commnet) : ?>
@@ -115,14 +144,29 @@ if (!empty($c)) : ?>
                                                     </div>
                                                 </div>
                                                 <div class="content">
-                                                    <?= $cc['content'] ?>
+                                                    <div class="content-box"><?= $cc['content'] ?></div>
+                                                    <div class="editor-box">
+                                                        <textarea><?= trim($cc['content']) ?></textarea>
+                                                        <div class="d-flex">
+                                                            <button class="btn btn-sm btn-primary btn-confirm-edit-comment" data-id="<?= $cc['id'] ?>">Confirm</button>
+                                                            <button class="btn btn-sm btn-secondary btn-cancel-edit-comment">Cancel</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <button class="btn-sm btn btn-secondary btn-remove-comment">...</button>
-                                            <ul class="dropdown">
-                                                <li><button>Edit</button></li>
-                                                <li><button class="btn-delete-comment" data-id="<?= $cc['id'] ?>">Delete</button></li>
-                                            </ul>
+                                            <?php if ($cc['idUser'] == $_SESSION['isLogin']['id'] || $_SESSION['isLogin']['role'] == 'admin' || $_SESSION['isLogin']['role'] == 'teacher'): ?>
+                                                <button class="btn-sm btn btn-secondary btn-remove-comment">...</button>
+                                                <ul class="dropdown">
+                                                    <?php if ($cc['idUser'] == $_SESSION['isLogin']['id']): ?>
+                                                        <li>
+                                                            <button class="btn-expend-edit-comment">Edit</button>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                    <li>
+                                                        <button class="btn-delete-comment" data-id="<?= $cc['id'] ?>">Delete</button>
+                                                    </li>
+                                                </ul>
+                                            <?php endif; ?>
                                         </div>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -136,11 +180,19 @@ if (!empty($c)) : ?>
                                     data-parent="<?= $item['id'] ?>">Submit
                             </button>
                         </div>
-                        <button class="btn-sm btn btn-secondary btn-remove-comment">...</button>
-                        <ul class="dropdown">
-                            <li><button>Edit</button></li>
-                            <li><button class="btn-delete-comment" data-id="<?= $item['id'] ?>">Delete</button></li>
-                        </ul>
+                        <?php if ($item['idUser'] == $_SESSION['isLogin']['id'] || $_SESSION['isLogin']['role'] == 'admin' || $_SESSION['isLogin']['role'] == 'teacher'): ?>
+                            <button class="btn-sm btn btn-secondary btn-remove-comment">...</button>
+                            <ul class="dropdown">
+                                <?php if ($item['idUser'] == $_SESSION['isLogin']['id']): ?>
+                                    <li>
+                                        <button class="btn-expend-edit-comment">Edit</button>
+                                    </li>
+                                <?php endif; ?>
+                                <li>
+                                    <button class="btn-delete-comment" data-id="<?= $item['id'] ?>">Delete</button>
+                                </li>
+                            </ul>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
