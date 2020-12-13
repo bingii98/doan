@@ -26,6 +26,16 @@ ul {
     list-style-type: none;
 }
 
+.d-flex {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.d-block {
+    display: flex;
+    flex-direction: column;
+}
+
 nav.navbar {
     min-height: 10rem;
     background: var(--primary);
@@ -555,6 +565,7 @@ section {
 
 .section-intro .content {
     flex: 1;
+    width: 100%;
 }
 
 .section-intro .content .empty {
@@ -576,7 +587,7 @@ section {
     margin-top: 1rem;
     margin-bottom: 1rem;
     transition: all .2s ease-in-out;
-    height: 4rem;
+    height: 6rem;
     background: #F0F2F5;
     -webkit-box-shadow: 0 .5rem 1rem -.8rem var(--primary);
     -moz-box-shadow: 0 .5rem 1rem -.8rem var(--primary);
@@ -588,11 +599,23 @@ section {
     font-weight: 600;
 }
 
+.section-intro .content .editor-box .d-block label {
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: italic;
+    margin: 1rem 0;
+}
+
+.section-intro .content .editor-box .d-block .btn {
+    padding: .2rem 1rem;
+    width: 20rem;
+    margin-right: 20px;
+}
+
 .section-intro .content .editor-box textarea:focus,
 .section-intro .content .editor-box textarea:active {
     outline: none;
     border: none;
-    height: 20rem;
 }
 
 .section-intro .content .editor-box .list-comment {
@@ -674,6 +697,10 @@ section {
     margin: 20px 0;
 }
 
+.section-intro .content .list-comment .archive-comment .comment-wrapper .content .editor-box textarea {
+    background: #F0F2F5;
+}
+
 .section-intro .content .list-comment .archive-comment .comment-wrapper .reply-wrapper .archive-comment {
     background: #fff;
     padding: 2rem 1rem 1rem 2rem;
@@ -684,6 +711,26 @@ section {
 
 .section-intro .content .list-comment .archive-comment .btn-reply.expended + .editor-box {
     max-height: 500px;
+}
+
+.section-intro .content .list-comment .archive-comment .content.editing .editor-box {
+    max-height: 500px;
+}
+
+.section-intro .content .list-comment .archive-comment .content .editor-box {
+    transition: unset;
+}
+
+.section-intro .editor-box .btn {
+    box-shadow: unset;
+}
+
+.section-intro .content .list-comment .archive-comment .content.editing .editor-box .btn {
+    margin-right: 20px;
+}
+
+.section-intro .content .list-comment .archive-comment .content.editing .content-box {
+    display: none;
 }
 
 .section-intro .content .list-comment .archive-comment .editor-box {
@@ -752,6 +799,19 @@ section {
     }
 }
 
+.file-box {
+    display: block;
+}
+
+.file-box img {
+    max-width: 500px;
+    width: 100%;
+    border-radius: .5rem;
+}
+
+.file-box .document {
+    margin-bottom: 2rem;
+}
 
 @media (max-width: 768px) {
     html {

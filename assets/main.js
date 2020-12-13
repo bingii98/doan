@@ -388,17 +388,27 @@ $(document).on('click', '.btn-remove-student', function () {
 })
 
 $(document).on('click', '#btn-create-comment', function () {
+    let form_data = new FormData();
     let id = $(this).attr('data-id')
     let parent = $(this).attr('data-parent')
     let content = $('#txt-content-comment').val()
+    let file_image = $('#image-input').prop('files')[0]
+    let file_document = $('#document-input').prop('files')[0]
+
+    form_data.append('id', id)
+    form_data.append('parent', parent)
+    form_data.append('content', content)
+    form_data.append('file_image', file_image)
+    form_data.append('file_document', file_document)
+
     $.ajax({
         url: 'a-addCommentClass.php',
         type: 'post',
-        data: {
-            'id': id,
-            'parent': parent,
-            'content': content,
-        },
+        dataType: 'text',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
         beforeSend: function () {
             $('.loading-box').addClass('loading')
         },
@@ -477,6 +487,56 @@ $(document).on('click', '.btn-delete-comment', function () {
             }
         });
     }
+})
+
+$(document).on('click', '.btn-confirm-edit-comment', function () {
+    if (confirm("Please confirm edit this comment!")) {
+        let id = $(this).attr('data-id')
+        let value = $(this).parent('.d-flex').parent('.editor-box').find('textarea').val()
+        $.ajax({
+            url: 'a-editComment.php',
+            type: 'post',
+            data: {
+                'id': id,
+                'content': value,
+            },
+            beforeSend: function () {
+                $('.loading-box').addClass('loading')
+            },
+            success: function (response) {
+                console.log(response)
+                if (response) {
+                    setTimeout(function () {
+                        $('.loading-box').removeClass('loading')
+                        window.location = "index.php";
+                    }, 100)
+                } else {
+                    setTimeout(function () {
+                        $('.loading-box').removeClass('loading')
+                        alert("Content or ID invalid, please fill refresh and retry!")
+                    }, 100)
+                }
+            }
+        });
+    }
+})
+
+$(document).on('click', '.btn-expend-edit-comment', function () {
+    $(this)
+        .parent('li')
+        .parent('.dropdown')
+        .parent('.archive-comment')
+        .find('.content')
+        .toggleClass('editing')
+    $('.btn-remove-comment').removeClass('expended')
+})
+
+$(document).on('click', '.btn-cancel-edit-comment', function () {
+    $(this)
+        .parent('.d-flex')
+        .parent('.editor-box')
+        .parent('.content')
+        .toggleClass('editing')
 })
 
 function loadClass() {

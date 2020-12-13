@@ -10,7 +10,7 @@ class Comment
     /**
      * @desc Insert nre class
      */
-    function insert($id, $parent, $content)
+    function insert($id, $parent, $content, $image, $document)
     {
         global $conn;
         $id = mysqli_real_escape_string($conn, $id);
@@ -18,7 +18,7 @@ class Comment
         $content = mysqli_real_escape_string($conn, $content);
         if ($id != "" && $parent != "" && $content) {
             $now = new DateTime();
-            $sql = "insert into comment(idUser,idClass,parent,content,time) values (" . $_SESSION['isLogin']['id'] . "," . $id . "," . $parent . ",'" . $content . "', '" . $now->format('Y-m-d H:i:s') . "')";
+            $sql = "insert into comment(idUser,idClass,parent,content,time, image, document) values (" . $_SESSION['isLogin']['id'] . "," . $id . "," . $parent . ",'" . $content . "', '" . $now->format('Y-m-d H:i:s') . "', '" . $image . "', '" . $document . "')";
             if (mysqli_query($conn, $sql)) {
                 return true;
             } else {
@@ -33,7 +33,7 @@ class Comment
     function getByClass($id)
     {
         global $conn;
-        $sql_query = "select * from comment where idClass = " . $id . " and parent = 0";
+        $sql_query = "select * from comment where idClass = " . $id . " and parent = 0 ORDER BY id DESC";
         $result = mysqli_query($conn, $sql_query);
         $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return ($array);
@@ -45,7 +45,7 @@ class Comment
     function getByClassParent($idParent)
     {
         global $conn;
-        $sql_query = "select * from comment where parent = " . $idParent;
+        $sql_query = "select * from comment where parent = " . $idParent . "  ORDER BY id DESC";
         $result = mysqli_query($conn, $sql_query);
         $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return ($array);
@@ -63,5 +63,24 @@ class Comment
             return true;
         else
             return false;
+    }
+
+
+    /**
+     * @desc edit
+     */
+    function edit($id, $content)
+    {
+        global $conn;
+        $id = mysqli_real_escape_string($conn, $id);
+        $content = mysqli_real_escape_string($conn, $content);
+        if ($id != "" && $content != "") {
+            $sql = "update comment set content = '" . $content . "' where  id = " . $id;
+            if (mysqli_query($conn, $sql)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
