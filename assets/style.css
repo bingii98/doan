@@ -581,7 +581,8 @@ section {
     box-shadow: 0 .5rem 1rem -.8rem var(--primary);
 }
 
-.section-intro .content .list-comment .archive-comment .comment-wrapper {
+.section-intro .content .list-comment .archive-comment .btn {
+    box-shadow: none;
 }
 
 .section-intro .content .list-comment .archive-comment .comment-wrapper .user-info {
@@ -607,6 +608,28 @@ section {
 
 .section-intro .content .list-comment .archive-comment .comment-wrapper .content {
     margin: 20px 0;
+}
+
+.section-intro .content .list-comment .archive-comment .comment-wrapper .reply-wrapper .archive-comment {
+    background: #fff;
+    padding: 2rem 1rem 1rem 2rem;
+    margin-bottom: 2rem;
+    margin-top: 20px;
+}
+
+.section-intro .content .list-comment .archive-comment .btn-reply.expended + .editor-box {
+    max-height: 500px;
+}
+
+.section-intro .content .list-comment .archive-comment .editor-box {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s ease-in-out;
+}
+
+.section-intro .content .list-comment .archive-comment textarea {
+    background: #fff;
+    box-shadow: unset;
 }
 
 @media (max-width: 768px) {
