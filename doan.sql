@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2020 at 08:37 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: Dec 13, 2020 at 07:59 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,16 +36,6 @@ CREATE TABLE `class` (
   `author` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `class`
---
-
-INSERT INTO `class` (`id`, `name`, `image`, `room`, `subject`, `author`) VALUES
-(11, 'sdasdasd', '2.jpg', 'sadas', 'sadasd', 10),
-(12, 'asdasd', '2.jpg', 'sd', 'sdasd', 9),
-(13, 'dfdf', '2.jpg', 'dfsdf', 'dfsd', 9),
-(14, 'images', '2.jpg', 'sdfsdf', 'sdf', 9);
-
 -- --------------------------------------------------------
 
 --
@@ -58,16 +48,10 @@ CREATE TABLE `comment` (
   `idClass` int(11) NOT NULL,
   `parent` int(11) NOT NULL,
   `content` text NOT NULL,
-  `time` text NOT NULL
+  `time` text NOT NULL,
+  `image` text NOT NULL,
+  `document` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `comment`
---
-
-INSERT INTO `comment` (`id`, `idUser`, `idClass`, `parent`, `content`, `time`) VALUES
-(3, 9, 11, 0, 'ghfgh', '2020-12-13 08:21:39'),
-(4, 9, 11, 0, 'alo alo\n', '2020-12-13 08:23:01');
 
 -- --------------------------------------------------------
 
@@ -103,10 +87,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `email`, `role`, `tel`, `dateofbirth`) VALUES
-(9, 'admindoan', 'c93ccd78b2076528346216b3b2f701e6', 'Giang Nguyễn', 'october15th98@gmail.com', 'admin', '0827374414', '2020-12-08'),
-(10, 'admindoan1', 'c93ccd78b2076528346216b3b2f701e6', 'Giang Nguyễn', 'october15th98@gmail.com', 'teacher', '0827374414', '2020-05-07'),
-(11, 'student1', 'c93ccd78b2076528346216b3b2f701e6', 'Giang Nguyễn', 'october15th98@gmail.com', 'user', '0827374414', '2000-06-17'),
-(12, 'student2', 'c93ccd78b2076528346216b3b2f701e6', 'Nguyen Giang 1', 'october15th98@gmail.com', 'user', '0827374414', '2020-12-10');
+(9, 'admindoan', 'c93ccd78b2076528346216b3b2f701e6', 'Sơn Huỳnh', 'huynhson140198@gmail.com', 'admin', '', '1998-12-08');
 
 --
 -- Indexes for dumped tables
@@ -144,7 +125,7 @@ ALTER TABLE `class`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
