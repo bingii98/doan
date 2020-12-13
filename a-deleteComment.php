@@ -1,9 +1,10 @@
 <?php
 include 'model/Comment.php';
 $comment = new Comment();
-
-if ($comment->insert($_POST['id'], $_POST['parent'], $_POST['content'])) {
+if ($comment->delete($_POST['id'])) {
     echo true;
 } else {
     echo false;
 }
+
+

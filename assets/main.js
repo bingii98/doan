@@ -183,7 +183,13 @@ $('#btn-cancel-edit-class').click(function () {
 })
 
 /** @desc Cancel edit */
-$(document).on('click', '.btn-reply', function () {
+$('.sidebar .btn-collapse').click(function () {
+    $('.sidebar').toggleClass('expended')
+    $(this).toggleClass('expended')
+})
+
+/** @desc Cancel edit */
+$(document).on('click', '.btn-reply, .btn-remove-comment', function () {
     $(this).toggleClass('expended')
 })
 
@@ -416,7 +422,7 @@ $(document).on('click', '#btn-create-comment', function () {
 $(document).on('click', '.btn-create-comment-reply', function () {
     let id = $(this).attr('data-id')
     let parent = $(this).attr('data-parent')
-    let content = $(this).parent('.editor-box').find('.txt-content-comment-reply').val()
+    let content = $(this).parent('.editor-box').find('textarea').val()
     $.ajax({
         url: 'a-addCommentClass.php',
         type: 'post',
@@ -429,7 +435,6 @@ $(document).on('click', '.btn-create-comment-reply', function () {
             $('.loading-box').addClass('loading')
         },
         success: function (response) {
-            console.log(response)
             if (response) {
                 setTimeout(function () {
                     $('.loading-box').removeClass('loading')
@@ -443,6 +448,35 @@ $(document).on('click', '.btn-create-comment-reply', function () {
             }
         }
     });
+})
+
+$(document).on('click', '.btn-delete-comment', function () {
+    if (confirm("Please confirm delete this comment!")) {
+        let id = $(this).attr('data-id')
+        $.ajax({
+            url: 'a-deleteComment.php',
+            type: 'post',
+            data: {
+                'id': id,
+            },
+            beforeSend: function () {
+                $('.loading-box').addClass('loading')
+            },
+            success: function (response) {
+                if (response) {
+                    setTimeout(function () {
+                        $('.loading-box').removeClass('loading')
+                        window.location = "index.php";
+                    }, 100)
+                } else {
+                    setTimeout(function () {
+                        $('.loading-box').removeClass('loading')
+                        alert("Content or ID invalid, please fill refresh and retry!")
+                    }, 100)
+                }
+            }
+        });
+    }
 })
 
 function loadClass() {

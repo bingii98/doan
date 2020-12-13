@@ -26,6 +26,7 @@ if ($_SESSION['isLogin']['role'] != 'admin') {
 <main>
     <div class="admin-section">
         <nav class="sidebar">
+            <button class="btn btn-secondary btn-collapse"></button>
             <div class="user-info">
                 <div class="avatar">
                     <img src="assets/img/generic-avatar.jpg" alt="Avatar Placeholder">

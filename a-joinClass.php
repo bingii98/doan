@@ -100,7 +100,32 @@ if (!empty($c)) : ?>
                                 <?= $item['content'] ?>
                             </div>
                             <div class="reply-wrapper">
-
+                                <?php $c_arr_commnet = $comment->getByClassParent($item['id']); ?>
+                                <?php if ($c_arr_commnet) : ?>
+                                    <?php foreach ($c_arr_commnet as $cc) : ?>
+                                        <div class="archive-comment">
+                                            <div class="comment-wrapper">
+                                                <div class="user-info">
+                                                    <div class="avt">
+                                                        <img src="assets/img/generic-avatar.jpg" alt="Avatar">
+                                                    </div>
+                                                    <div class="headline">
+                                                        <p class="name"><?= $user->getUserById($cc["idUser"])['fullname'] ?></p>
+                                                        <time><?= $cc['time'] ?></time>
+                                                    </div>
+                                                </div>
+                                                <div class="content">
+                                                    <?= $cc['content'] ?>
+                                                </div>
+                                            </div>
+                                            <button class="btn-sm btn btn-secondary btn-remove-comment">...</button>
+                                            <ul class="dropdown">
+                                                <li><button>Edit</button></li>
+                                                <li><button class="btn-delete-comment" data-id="<?= $cc['id'] ?>">Delete</button></li>
+                                            </ul>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <button class="btn btn-sm btn-primary btn-reply">Reply</button>
@@ -111,6 +136,11 @@ if (!empty($c)) : ?>
                                     data-parent="<?= $item['id'] ?>">Submit
                             </button>
                         </div>
+                        <button class="btn-sm btn btn-secondary btn-remove-comment">...</button>
+                        <ul class="dropdown">
+                            <li><button>Edit</button></li>
+                            <li><button class="btn-delete-comment" data-id="<?= $item['id'] ?>">Delete</button></li>
+                        </ul>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>

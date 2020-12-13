@@ -19,7 +19,6 @@ class Comment
         if ($id != "" && $parent != "" && $content) {
             $now = new DateTime();
             $sql = "insert into comment(idUser,idClass,parent,content,time) values (" . $_SESSION['isLogin']['id'] . "," . $id . "," . $parent . ",'" . $content . "', '" . $now->format('Y-m-d H:i:s') . "')";
-            echo $sql;
             if (mysqli_query($conn, $sql)) {
                 return true;
             } else {
@@ -43,12 +42,26 @@ class Comment
     /**
      * @desc Get all class
      */
-    function getByClassParent($id, $idParent)
+    function getByClassParent($idParent)
     {
         global $conn;
-        $sql_query = "select * from comment where idClass = " . $id . " and parent = " . $idParent;
+        $sql_query = "select * from comment where parent = " . $idParent;
         $result = mysqli_query($conn, $sql_query);
         $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return ($array);
+    }
+
+
+    /**
+     * @desc Delete a user
+     */
+    function delete($id)
+    {
+        global $conn;
+        $sql_query = "delete from comment where id = " . $id;
+        if ($conn->query($sql_query) === TRUE)
+            return true;
+        else
+            return false;
     }
 }
