@@ -54,6 +54,7 @@ $arr = $class->getByStudent($_SESSION['isLogin']['id']);
                     <th>Room</th>
                     <th>Teacher</th>
                     <th>Status</th>
+                    <th>View</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,7 @@ $arr = $class->getByStudent($_SESSION['isLogin']['id']);
                             <td><?= $item['room'] ?></td>
                             <td><?= $user->getUserById($item['author'])['fullname'] ?></td>
                             <td><?= count($class->getListStudent($item['id'])) ?> student</td>
+                            <td><button class="btn btn-secondary btn-sm" id="btn-view-class-history" data-id="<?= $i['idClass'] ?>">View</button></td>
                         </tr>
                     <?php endforeach;
                 endif; ?>
