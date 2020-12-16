@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2020 at 07:59 PM
+-- Generation Time: Dec 16, 2020 at 12:14 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -35,6 +35,13 @@ CREATE TABLE `class` (
   `subject` text NOT NULL,
   `author` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `class`
+--
+
+INSERT INTO `class` (`id`, `name`, `image`, `room`, `subject`, `author`) VALUES
+(15, 'images', '44118083.jpg', 'SDASD', 'asdA', 9);
 
 -- --------------------------------------------------------
 
@@ -119,13 +126,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
