@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2020 at 12:14 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Dec 16, 2020 at 01:24 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `class` (
 --
 
 INSERT INTO `class` (`id`, `name`, `image`, `room`, `subject`, `author`) VALUES
-(15, 'images', '44118083.jpg', 'SDASD', 'asdA', 9);
+(16, 'Class 1', 'classroom.jpg', 'B1.01', 'English', 9);
 
 -- --------------------------------------------------------
 
@@ -72,6 +72,13 @@ CREATE TABLE `join_history` (
   `time` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `join_history`
+--
+
+INSERT INTO `join_history` (`idUser`, `idClass`, `time`) VALUES
+(13, 16, '2020-12-16 13:14:32');
+
 -- --------------------------------------------------------
 
 --
@@ -94,7 +101,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `email`, `role`, `tel`, `dateofbirth`) VALUES
-(9, 'admindoan', 'c93ccd78b2076528346216b3b2f701e6', 'Sơn Huỳnh', 'huynhson140198@gmail.com', 'admin', '', '1998-12-08');
+(9, 'admindoan', 'c93ccd78b2076528346216b3b2f701e6', 'Sơn Huỳnh', 'huynhson140198@gmail.com', 'admin', '', '1998-12-08'),
+(13, 'student1', '5e5545d38a68148a2d5bd5ec9a89e327', 'Học Sinh', 'student1@gmail.com', 'user', '0827374414', '2000-12-08');
 
 --
 -- Indexes for dumped tables
@@ -126,7 +134,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -138,7 +146,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
