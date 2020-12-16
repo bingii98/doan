@@ -521,6 +521,24 @@ $(document).on('click', '.btn-confirm-edit-comment', function () {
     }
 })
 
+$(document).on('click', '#btn-view-class-history', function () {
+    let id = $(this).attr('data-id')
+    $.ajax({
+        url: 'a-setSessionJoinClass.php',
+        type: 'post',
+        data: {
+            'id': id,
+        },
+        beforeSend: function () {
+            $('.loading-box').addClass('loading')
+        },
+        success: function (response) {
+            $('.loading-box').removeClass('loading')
+            window.location = "index.php";
+        }
+    });
+})
+
 $(document).on('click', '.btn-expend-edit-comment', function () {
     $(this)
         .parent('li')
